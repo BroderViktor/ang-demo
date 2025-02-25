@@ -19,16 +19,28 @@ model employees {
   position String
 }
 
-model users {
+model User {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   firstName String
   lastName  String
   Message   Message[]
+  Todo      Todo[]
+
+  @@map("users")
 }
 
 model Message {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
   content String
   userId  String
-  user    users  @relation(fields: [userId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
+}
+
+model Todo {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  isDone Boolean @default(false)
+  text   String  @default("")
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 }

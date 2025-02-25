@@ -8,6 +8,7 @@ import { AcademyComponent } from './pages/academy/academy.component';
 import { MeetingsComponent } from './pages/meetings/meetings.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { OwnersComponent } from './pages/owners/owners.component';
+import { TodosComponent } from './pages/todo/todo.component';
 
 export const routes: Routes = [
   {
@@ -50,5 +51,9 @@ export const routes: Routes = [
     path: routePaths.owners,
     component: OwnersComponent,
     title: 'Owners',
+  },
+  {
+    path: routePaths.todo,
+    component: TodosComponent,
   },
 ] as const;

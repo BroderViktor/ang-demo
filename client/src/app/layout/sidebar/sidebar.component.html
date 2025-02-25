@@ -3,8 +3,10 @@
     <button mat-icon-button (click)="toggleSidebar()">
       <mat-icon>menu</mat-icon>
     </button>
-    <h1>Responsive App</h1>
-    <p>{{ "Home" | translatePipe }}</p>
+    <h1>{{ "Home" | translatePipe }}</h1>
+    <div class="ml-auto">
+      <ob-locale-selector />
+    </div>
   </mat-toolbar>
 
   <mat-sidenav-container

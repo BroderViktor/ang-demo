@@ -13,7 +13,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { RoutePath, routePaths } from '../../appRouteTypes';
-import { TranslatePipe } from '../../pipes/translate.pipe';
+import { LocaleSelectorComponent } from '../../language/locale-selector.component';
+import { TranslatePipe } from '../../language/translation/translate.pipe';
 
 interface MenuItem {
   route: RoutePath;
@@ -38,6 +39,7 @@ interface MenuItem {
     MatListModule,
     RouterModule,
     TranslatePipe,
+    LocaleSelectorComponent,
   ],
 })
 export class DemoSidebar implements OnDestroy {
@@ -55,6 +57,7 @@ export class DemoSidebar implements OnDestroy {
     { route: routePaths.meetings, label: 'Meetings', icon: 'calendar_today' },
     { route: routePaths.messages, label: 'Messages', icon: 'message' },
     { route: routePaths.owners, label: 'Owners', icon: 'people' },
+    { route: routePaths.todo, label: 'Todo', icon: 'people' },
   ]);
 
   mobileQuery: MediaQueryList | undefined;

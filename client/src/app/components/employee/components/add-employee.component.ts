@@ -15,6 +15,7 @@ import { EmployeeFormComponent } from './employee-form.component';
       </mat-card-header>
       <mat-card-content>
         <ob-employee-form
+          [initialState]="{ name: '', position: '', level: 'junior' }"
           (formSubmitted)="addEmployee($event)"
         ></ob-employee-form>
       </mat-card-content>
