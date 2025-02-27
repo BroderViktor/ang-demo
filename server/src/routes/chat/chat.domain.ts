@@ -1,4 +1,4 @@
-import chatRepository from "./chatRepository";
+import chatRepository from "./chat.query";
 
 class ChatService {
   public async getMessages() {

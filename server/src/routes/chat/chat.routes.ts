@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import { z, ZodRawShape } from "zod";
-import chatController from "./chatController";
+import chatController from "./chat.controller";
 
 export const chatRouter = express.Router();
 chatRouter.use(express.json());

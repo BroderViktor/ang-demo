@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import chatService from "./chatService";
+import chatService from "./chat.domain";
 
 class ChatController {
   public async getMessages(req: Request, res: Response) {

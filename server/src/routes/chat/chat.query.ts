@@ -1,4 +1,4 @@
-import { prisma } from "@/database/prismaDatabase";
+import { prisma } from "src/database/prismaDatabase";
 
 class ChatRepository {
   public async getMessages() {
