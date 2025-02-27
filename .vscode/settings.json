@@ -18,5 +18,29 @@
     "titleBar.inactiveBackground": "#050d0799",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "peacock.color": "#050d07"
+  "peacock.color": "#050d07",
+  "githubIssues.queries": [
+    {
+      "label": "My Issues",
+      "query": "is:open assignee:${user} repo:${owner}/${repository}",
+      "groupBy": ["milestone"]
+    },
+    {
+      "label": "Bugs",
+      "query": "label:\"bug\" state:open repo:${owner}/${repository}"
+    },
+    {
+      "label": "Features",
+      "query": "label:\"feature\" state:open repo:${owner}/${repository}"
+    },
+    {
+      "label": "Created Issues",
+      "query": "author:${user} state:open repo:${owner}/${repository} sort:created-desc"
+    },
+    {
+      "label": "Recent Issues",
+      "query": "state:open repo:${owner}/${repository} sort:updated-desc"
+    }
+  ],
+  "githubIssues.issueBranchTitle": "${user}/issue/${issueNumber}-${sanitizedIssueTitle}"
 }
