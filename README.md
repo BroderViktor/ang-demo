@@ -1,4 +1,3 @@
-
 # You pushed to main?
 
 If you pushed to main, then you should reset to origin/main
@@ -28,3 +27,5 @@ If you want to keep your commits, but you want to revert a commit, then use reve
 ```bash
 git revert <commit_to_revert>
 ```
+
+sadkqwjidjkopq
