@@ -27,5 +27,3 @@ If you want to keep your commits, but you want to revert a commit, then use reve
 ```bash
 git revert <commit_to_revert>
 ```
-
-sadkqwjidjkopq
