@@ -18,7 +18,7 @@ export class TodoService {
   async getTodo(input: { id: string }) {
     const { id } = input;
 
-    return this.trpcClient.getTodo.query({
+    return this.trpcClient.todo.getTodo.query({
       id,
     });
   }
@@ -26,20 +26,20 @@ export class TodoService {
   async toggleTodo(input: { id: string; isDone: boolean }) {
     const { id, isDone } = input;
 
-    return this.trpcClient.toggleTodo.mutate({
+    return this.trpcClient.todo.toggleTodo.mutate({
       id,
       isDone,
     });
   }
 
   async getTodos() {
-    return this.trpcClient.getTodos.query();
+    return this.trpcClient.todo.getTodos.query();
   }
 
   async createTodo(input: { text: string; userId: string }) {
     const { text, userId } = input;
 
-    return this.trpcClient.createTodo.mutate({
+    return this.trpcClient.todo.createTodo.mutate({
       text,
       userId,
     });
@@ -48,7 +48,7 @@ export class TodoService {
   async deleteTodo(input: { id: string }) {
     const { id } = input;
 
-    return this.trpcClient.deleteTodo.mutate({
+    return this.trpcClient.todo.deleteTodo.mutate({
       id,
     });
   }
