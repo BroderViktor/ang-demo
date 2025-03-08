@@ -1,0 +1,26 @@
+name: Run Spec Tests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # ...existing code...
+      - name: Check out repository
+        uses: actions/checkout@v2
+      # ...existing code...
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      # ...existing code...
+      - name: Install dependencies
+        run: npm install
+      # ...existing code...
+      - name: Run tests
+        run: npm run test
