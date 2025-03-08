@@ -1,17 +1,14 @@
 import { initTRPC } from "@trpc/server";
-import { Request, Response } from "express";
+import { CreateHTTPContextOptions } from "@trpc/server/adapters/standalone";
+import { CreateWSSContextFnOptions } from "@trpc/server/adapters/ws";
 import { prisma } from "../../database/prismaDatabase";
 
 // ...existing context creation code...
-const createContext = async ({
-  req,
-  res,
-}: {
-  req: Request;
-  res: Response;
-}) => ({
-  req,
-  res,
+const createContext = async (
+  opts: CreateHTTPContextOptions | CreateWSSContextFnOptions
+) => ({
+  req: opts.req,
+  res: opts.res,
   db: prisma,
 });
 type TrpcContext = Awaited<ReturnType<typeof createContext>>;
