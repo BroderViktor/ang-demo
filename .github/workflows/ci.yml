@@ -21,6 +21,6 @@ jobs:
       - name: Run ESLint
         run: npm run lint
       - name: Run TS Check
-        run: tsc --noEmit
+        run: npm run typesafety
       - name: Run Build
         run: npm run build

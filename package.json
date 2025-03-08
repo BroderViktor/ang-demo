@@ -18,7 +18,10 @@
     "test:server": "cd server && npm run test",
     "lint": "npm run prepare && concurrently \"npm run lint:client\" \"npm run lint:server\"",
     "lint:client": "cd client && npm run lint",
-    "lint:server": "cd server && npm run lint"
+    "lint:server": "cd server && npm run lint",
+    "typesafety": "npm run prepare && concurrently \"npm run typesafety:client\" \"npm run typesafety:server\"",
+    "typesafety:client": "cd client && npm run typesafety",
+    "typesafety:server": "cd server && npm run typesafety"
   },
   "devDependencies": {
     "concurrently": "^7.1.0"
