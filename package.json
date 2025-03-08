@@ -1,6 +1,6 @@
 {
-  "name": "mean-stack-demo",
-  "version": "2.0.0",
+  "name": "tech-stack-demo",
+  "version": "0.0.1",
   "description": "Sample CRUD application built with the MEAN stack.",
   "main": "index.js",
   "scripts": {
@@ -13,9 +13,12 @@
     "build": "npm run prepare && concurrently \"npm run build:server\" \"npm run build:client\"",
     "build:server": "cd server && npm run build",
     "build:client": "cd client && npm run build",
-    "test": "npm run prepare && concurrently \"npm run test:client\" \"npm run test:server\"",
-    "test:client": "cd client && npm test",
-    "test:server": "cd server && npm test"
+    "lint": "npm run prepare && concurrently \"npm run lint:client\" \"npm run lint:server\"",
+    "lint:client": "cd client && npm run lint",
+    "lint:server": "cd server && npm run lint",
+    "typesafety": "npm run prepare && concurrently \"npm run typesafety:client\" \"npm run typesafety:server\"",
+    "typesafety:client": "cd client && npm run typesafety",
+    "typesafety:server": "cd server && npm run typesafety"
   },
   "devDependencies": {
     "concurrently": "^7.1.0"

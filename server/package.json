@@ -6,6 +6,8 @@
     "start": "ts-node src/server.ts",
     "build": "tsc",
     "test": "eslint .",
+    "lint": "eslint .",
+    "typesafety": "tsc --noEmit",
     "generate-mongoose-types": "mtgen \"./**/models/**/*.ts\""
   },
   "author": "Stanimira Vlaeva",

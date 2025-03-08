@@ -78,12 +78,9 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "polyfills": ["zone.js", "zone.js/testing"],
-            "tsConfig": "tsconfig.spec.json",
+            "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": [
-              "@angular/material/prebuilt-themes/rose-red.css",
-              "src/styles.css"
-            ],
+            "styles": ["src/mat-angular.scss", "src/tailwind.css"],
             "scripts": []
           }
         },
