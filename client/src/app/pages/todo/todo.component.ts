@@ -5,7 +5,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { TranslatePipe } from '../../language/translation/translate.pipe';
+import { TranslatePipe } from '../../service/language/translation/translate.pipe';
 import { TodoFormComponent } from './components/todo-form.component';
 import { TodoReturnTypes, TodoService } from './todo.service';
 
@@ -76,7 +76,6 @@ export class TodosComponent implements OnInit {
 
   async ngOnInit() {
     await this.refreshTodos();
-    this.todoService.testSubscription();
   }
 
   async addTodo({ text }: { text: string }) {

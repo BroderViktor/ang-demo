@@ -6,7 +6,7 @@ import { EditEmployeeComponent } from './components/employee/components/edit-emp
 import { EmployeesListComponent } from './components/employee/components/employees-list.component';
 import { AcademyComponent } from './pages/academy/academy.component';
 import { MeetingsComponent } from './pages/meetings/meetings.component';
-import { MessagesComponent } from './pages/messages/messages.component';
+import { MessagesComponent } from './pages/messages/message.component';
 import { OwnersComponent } from './pages/owners/owners.component';
 import { TodosComponent } from './pages/todo/todo.component';
 
