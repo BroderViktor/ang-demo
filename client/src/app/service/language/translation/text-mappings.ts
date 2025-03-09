@@ -35,6 +35,22 @@ const textMappingsInternal = {
     en: 'Add',
     nb: 'Legg til',
   },
+  'Messages.title': {
+    en: 'Messages',
+    nb: 'Meldinger',
+  },
+  'MessageForm.content.label': {
+    en: 'Message',
+    nb: 'Melding',
+  },
+  'MessageForm.content.error': {
+    en: 'This field is required',
+    nb: 'Dette feltet er påkrevd',
+  },
+  'MessageForm.content.submitButton.text': {
+    en: 'Send',
+    nb: 'Send',
+  },
 } as const;
 
 //? if textMappingsInteral is set to type "TextMappings" TranslationKey type will be "string"

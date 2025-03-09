@@ -11,7 +11,7 @@ interface FormProps {
 }
 
 @Component({
-  selector: 'ob-todo-form',
+  selector: 'ob-message-form',
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -29,16 +29,16 @@ interface FormProps {
       class="w-full flex p-4 gap-2 h-20"
     >
       <mat-form-field [class]="'w-full flex'">
-        <mat-label>{{ 'TodoForm.text.label' | translatePipe }}</mat-label>
+        <mat-label>{{ 'MessageForm.content.label' | translatePipe }}</mat-label>
         <input matInput formControlName="text" required />
         @if (text.invalid) {
-        <mat-error>{{ 'TodoForm.text.error' | translatePipe }}</mat-error>
+        <mat-error>{{ 'MessageForm.content.error' | translatePipe }}</mat-error>
         }
       </mat-form-field>
       <br />
 
       <button mat-raised-button type="submit" [class]="'w-40'">
-        {{ 'TodoForm.submitButton.text' | translatePipe }}
+        {{ 'MessageForm.content.submitButton.text' | translatePipe }}
       </button>
     </form>
   `,
@@ -73,5 +73,6 @@ export class TodoFormComponent {
     if (!text) return;
 
     this.formSubmitted.emit({ text });
+    this.todoForm.reset();
   }
 }
