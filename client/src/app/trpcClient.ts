@@ -5,7 +5,7 @@ import {
   splitLink,
   wsLink,
 } from '@trpc/client';
-import type { AppRouterNew } from '../../../server/src/routes/trpcRouters/appRouter';
+import type { AppRouterNew } from '../../../server/src/trpc/appRouter';
 
 globalThis.WebSocket = WebSocket;
 
@@ -15,7 +15,6 @@ export const wsClient = createWSClient({
 
 export const trpcClient = createTRPCProxyClient<AppRouterNew>({
   links: [
-    // call subscriptions through websockets and the rest over http
     splitLink({
       condition(op) {
         return op.type === 'subscription';

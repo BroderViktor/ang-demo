@@ -11,11 +11,13 @@ import { WebSocketServer } from "ws";
 import { startMongooseDatabase } from "./database/mongooseDatabase";
 import { prisma, startPrismaDatabase } from "./database/prismaDatabase";
 import { employeeRouter } from "./routes/employees/employee.routes";
-import { AppRouter, appRouter } from "./routes/trpcRouters/appRouter";
+import { AppRouter, appRouter } from "./trpc/appRouter";
 
+//? Start the databases
 startMongooseDatabase();
 startPrismaDatabase();
 
+//? Create a TRPC router
 const createContext = async (
   opts: trpcExpress.CreateExpressContextOptions | CreateWSSContextFnOptions
 ) => ({
@@ -31,6 +33,7 @@ const trpcServer = trpcExpress.createExpressMiddleware({
   createContext,
 });
 
+//? Create an express server
 const app = express();
 app.use(
   cors({
@@ -42,18 +45,18 @@ app.use("/trpc", trpcServer);
 app.use("/employees", employeeRouter);
 app.use("/chat", employeeRouter);
 
+app.listen(5200, () => {
+  console.log(`Server running at http://localhost:2022...`);
+});
+
+//? Create a WebSocket server
 const server = createServer(app);
 
-// ws server
 const wss = new WebSocketServer({ server });
 applyWSSHandler<AppRouter>({
   wss,
   router: appRouter,
   createContext,
-});
-
-app.listen(5200, () => {
-  console.log(`Server running at http://localhost:2022...`);
 });
 
 server.listen(2022, () => {
