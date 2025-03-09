@@ -2,7 +2,7 @@ import { TranslationLanguage } from '../language.service';
 
 type TextMappings = Record<string, Record<TranslationLanguage, string>>;
 
-export const textMappings: TextMappings = {
+const textMappingsInternal = {
   'LocaleSelector.norwegian.label': {
     en: 'Norwegian',
     nb: 'Norsk',
@@ -37,4 +37,7 @@ export const textMappings: TextMappings = {
   },
 } as const;
 
-export type TranslationKey = keyof typeof textMappings;
+//? if textMappingsInteral is set to type "TextMappings" TranslationKey type will be "string"
+//? instead of the string union of the keys of "textMappingsInternal"
+export const textMappings = textMappingsInternal as TextMappings;
+export type TranslationKey = keyof typeof textMappingsInternal;
