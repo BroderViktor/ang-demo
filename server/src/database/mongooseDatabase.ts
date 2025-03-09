@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import * as mongodb from "mongodb";
 import { ServerApiVersion } from "mongodb";
 import mongoose from "mongoose";
-import { Employee } from "../employee";
+import { Employee } from "../routes/employees/employee";
 
 export const collections: {
   employees?: mongodb.Collection<Employee>;

@@ -67,7 +67,6 @@ import { TodoReturnTypes, TodoService } from './todo.service';
       <ob-todo-form (formSubmitted)="addTodo($event)" class="w-full" />
     </div>
   `,
-  styles: ``,
 })
 export class TodosComponent implements OnInit {
   hideDoneTodos = signal(false);
@@ -77,6 +76,7 @@ export class TodosComponent implements OnInit {
 
   async ngOnInit() {
     await this.refreshTodos();
+    this.todoService.testSubscription();
   }
 
   async addTodo({ text }: { text: string }) {
