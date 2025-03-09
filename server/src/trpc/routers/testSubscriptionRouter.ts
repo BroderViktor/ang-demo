@@ -2,7 +2,7 @@ import { observable } from "@trpc/server/observable";
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
-export const postRouter = createTRPCRouter({
+export const testSubscriptionRouter = createTRPCRouter({
   createPost: publicProcedure
     .input(
       z.object({
@@ -17,12 +17,13 @@ export const postRouter = createTRPCRouter({
         ...input,
       };
     }),
-  randomNumber: publicProcedure.subscription(() => {
+  randomNumber: publicProcedure.subscription(({ ctx }) => {
+    console.log(ctx.req, ctx.res);
     return observable<{ randomNumber: number }>((emit) => {
       const timer = setInterval(() => {
         // emits a number every second
         emit.next({ randomNumber: Math.random() });
-      }, 200);
+      }, 2000);
 
       return () => {
         clearInterval(timer);

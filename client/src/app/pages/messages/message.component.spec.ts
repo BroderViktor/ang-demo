@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MessagesComponent } from './messages.component';
+import { MessagesComponent } from './message.component';
 
-describe('MessagesComponent', () => {
+describe('OwnersComponent', () => {
   let component: MessagesComponent;
   let fixture: ComponentFixture<MessagesComponent>;
 

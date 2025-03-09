@@ -55,7 +55,7 @@ export class TodoService {
   }
 
   async testSubscription() {
-    const createPostRes = await this.trpcClient.post.createPost.mutate({
+    const createPostRes = await this.trpcClient.chat.createPost.mutate({
       title: 'hello world',
       text: 'check out https://this.trpcClient.post.randomNumber.io',
     });
@@ -63,7 +63,7 @@ export class TodoService {
 
     let count = 0;
     await new Promise<void>((resolve) => {
-      const subscription = this.trpcClient.post.randomNumber.subscribe(
+      const subscription = this.trpcClient.chat.randomNumber.subscribe(
         undefined,
         {
           onData(data) {

@@ -1,10 +1,12 @@
-import { postRouter } from "./routers/postRouter";
+import { messageRouter } from "./routers/messageRouter";
+import { testSubscriptionRouter } from "./routers/testSubscriptionRouter";
 import { todoRouter } from "./routers/todoRouter";
 import { createCallerFactory, createTRPCRouter } from "./trpc";
 
 export const appRouter = createTRPCRouter({
   todo: todoRouter,
-  post: postRouter,
+  message: messageRouter,
+  chat: testSubscriptionRouter,
 });
 
 export type AppRouterNew = typeof appRouter;

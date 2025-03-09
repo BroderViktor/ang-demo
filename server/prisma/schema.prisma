@@ -7,10 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-type UsersCity {
-  coordinates Int[]
-}
-
 /// This collection uses a JSON Schema defined in the database, which requires additional setup for migrations. Visit https://pris.ly/d/mongodb-json-schema for more info.
 model employees {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
@@ -32,7 +28,7 @@ model User {
 model Message {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
   content String
-  userId  String
+  userId  String @db.ObjectId
   user    User   @relation(fields: [userId], references: [id])
 }
 
@@ -41,6 +37,6 @@ model Todo {
   isDone Boolean @default(false)
   text   String  @default("")
 
-  userId String
+  userId String @db.ObjectId
   user   User   @relation(fields: [userId], references: [id])
 }
