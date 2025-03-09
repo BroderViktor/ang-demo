@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { trpcClient, wsClient } from '../../trpcClient';
 
 type FunctionKeys<T> = {
@@ -8,18 +8,49 @@ type FunctionKeys<T> = {
 export type MessageReturnTypes<T extends FunctionKeys<MessageService>> =
   Awaited<ReturnType<MessageService[T]>>;
 
+export interface Message {
+  id: string;
+  userId: string;
+  content: string;
+}
+
+type CreateMessage = Omit<Message, 'id'>;
+
 @Injectable({
   providedIn: 'root',
 })
 export class MessageService {
-  wsClient = wsClient;
-  trpcClient = trpcClient;
+  private wsClient = wsClient;
+  private trpcClient = trpcClient;
 
-  addMessage() {
-    return '....';
+  messages = signal<Message[]>([]);
+
+  async addMessage({ userId, content }: CreateMessage) {
+    return await this.trpcClient.message.add.mutate({
+      userId,
+      content,
+    });
   }
 
-  getNewMessage() {
-    return '....';
+  insertNewMessage(message: Message) {
+    this.messages.update((prev) => {
+      return [...prev, message];
+    });
+  }
+
+  async testSubscription() {
+    const addNewMessage = this.insertNewMessage;
+    await new Promise<void>(() => {
+      this.trpcClient.message.onAdd.subscribe(undefined, {
+        onData(data) {
+          console.log('received', data);
+          addNewMessage(data);
+        },
+        onError(err) {
+          console.error('error', err);
+        },
+      });
+    });
+    await this.wsClient.close();
   }
 }

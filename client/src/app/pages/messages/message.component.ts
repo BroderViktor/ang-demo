@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { TranslatePipe } from '../../service/language/translation/translate.pipe';
 import { TodoFormComponent } from './components/todo-form.component';
-import { MessageReturnTypes, MessageService } from './message.service';
+import { Message, MessageService } from './message.service';
 
 @Component({
   selector: 'ob-messages',
@@ -37,7 +37,13 @@ import { MessageReturnTypes, MessageService } from './message.service';
           class="bg-on-primary rounded-sm p-2 flex gap-2 items-center justify-between"
         >
           <div class="">
-            <!-- {{ item.text }} -->
+            @for (item of this.messages(); track $index) {
+            <div
+              class="bg-on-primary rounded-sm p-2 flex gap-2 items-center justify-between"
+            >
+              {{ item.content }}
+            </div>
+            }
           </div>
         </div>
       </div>
@@ -48,15 +54,14 @@ import { MessageReturnTypes, MessageService } from './message.service';
 export class MessagesComponent implements OnInit {
   hideDoneMessages = signal(false);
   messageservice = inject(MessageService);
-  messages = signal<MessageReturnTypes<'getNewMessage'>[]>([]);
+  messages = signal<Message[]>(this.messageservice.messages());
   userId = '67a685ecefffacd65cf995c9';
 
   async ngOnInit() {
-    // this.messageservice.testSubscription();
-    console.log('userId', this.userId);
+    this.messageservice.testSubscription();
   }
 
   async addTodo({ text }: { text: string }) {
-    console.log('addTodo', text);
+    this.messageservice.addMessage({ content: text, userId: this.userId });
   }
 }

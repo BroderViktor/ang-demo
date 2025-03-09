@@ -76,7 +76,6 @@ export class TodosComponent implements OnInit {
 
   async ngOnInit() {
     await this.refreshTodos();
-    this.todoService.testSubscription();
   }
 
   async addTodo({ text }: { text: string }) {

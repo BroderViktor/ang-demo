@@ -44,14 +44,16 @@ export const messageRouter = createTRPCRouter({
     .input(
       z.object({
         userId: z.string(),
-        text: z.string().min(1),
+        content: z.string().min(1),
       })
     )
     .mutation(async ({ input, ctx }) => {
+      const { userId, content } = input;
+
       const message = await ctx.db.message.create({
         data: {
-          content: input.text,
-          userId: input.userId,
+          content,
+          userId,
         },
       });
 
