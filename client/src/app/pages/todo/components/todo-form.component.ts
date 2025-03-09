@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { TranslatePipe } from '../../../language/translation/translate.pipe';
+import { TranslatePipe } from '../../../service/language/translation/translate.pipe';
 
 interface FormProps {
   text: string;

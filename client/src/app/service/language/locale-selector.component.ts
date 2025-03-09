@@ -3,7 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import { UserInsightService } from '../service/UserInsight.service';
+import { UserInsightService } from '../userInisght/UserInsight.service';
 import { LanguageService, TranslationLanguage } from './language.service';
 import { TranslatePipe } from './translation/translate.pipe';
 

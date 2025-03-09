@@ -12,9 +12,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import { RoutePath, routePaths } from '../../appRouteTypes';
-import { LocaleSelectorComponent } from '../../language/locale-selector.component';
-import { TranslatePipe } from '../../language/translation/translate.pipe';
+import { RoutePath, routePaths } from '../../../appRouteTypes';
+import { LocaleSelectorComponent } from '../../../service/language/locale-selector.component';
+import { TranslatePipe } from '../../../service/language/translation/translate.pipe';
 
 interface MenuItem {
   route: RoutePath;

@@ -6,8 +6,8 @@ import { Event, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import posthog from 'posthog-js';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
-import { DemoSidebar } from './layout/sidebar/sidebar.component';
+import { MainLayoutComponent } from './components/layout/main-layout/main-layout.component';
+import { DemoSidebar } from './components/layout/sidebar/sidebar.component';
 
 @Component({
   selector: 'ob-root',
