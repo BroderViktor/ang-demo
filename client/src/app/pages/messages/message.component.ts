@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -36,7 +36,7 @@ import { Message, MessageService } from './message.service';
         <div
           class="bg-on-primary rounded-sm p-2 flex gap-2 items-center justify-between"
         >
-          <div class="">
+          <div class="h-32 w-full flex flex-col gap-2 bg-red-200">
             @for (item of this.messages(); track $index) {
             <div
               class="bg-on-primary rounded-sm p-2 flex gap-2 items-center justify-between"
@@ -54,7 +54,7 @@ import { Message, MessageService } from './message.service';
 export class MessagesComponent implements OnInit {
   hideDoneMessages = signal(false);
   messageservice = inject(MessageService);
-  messages = signal<Message[]>(this.messageservice.messages());
+  messages = computed<Message[]>(() => this.messageservice.messages());
   userId = '67a685ecefffacd65cf995c9';
 
   async ngOnInit() {
@@ -62,6 +62,9 @@ export class MessagesComponent implements OnInit {
   }
 
   async addTodo({ text }: { text: string }) {
-    this.messageservice.addMessage({ content: text, userId: this.userId });
+    await this.messageservice.addMessage({
+      content: text,
+      userId: this.userId,
+    });
   }
 }

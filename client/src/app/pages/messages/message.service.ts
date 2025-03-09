@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { trpcClient, wsClient } from '../../trpcClient';
+import { trpcClient } from '../../trpcClient';
 
 type FunctionKeys<T> = {
   [K in keyof T]: T[K] extends (...args: unknown[]) => unknown ? K : never;
@@ -20,7 +20,7 @@ type CreateMessage = Omit<Message, 'id'>;
   providedIn: 'root',
 })
 export class MessageService {
-  private wsClient = wsClient;
+  // private wsClient = wsClient;
   private trpcClient = trpcClient;
 
   messages = signal<Message[]>([]);
@@ -39,11 +39,12 @@ export class MessageService {
   }
 
   async testSubscription() {
-    const addNewMessage = this.insertNewMessage;
+    const addNewMessage = (msg: Message) => {
+      this.insertNewMessage(msg);
+    };
     await new Promise<void>(() => {
       this.trpcClient.message.onAdd.subscribe(undefined, {
         onData(data) {
-          console.log('received', data);
           addNewMessage(data);
         },
         onError(err) {
@@ -51,6 +52,6 @@ export class MessageService {
         },
       });
     });
-    await this.wsClient.close();
+    // await this.wsClient.close();
   }
 }
