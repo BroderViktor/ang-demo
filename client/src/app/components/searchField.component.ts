@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
+  effect,
   ElementRef,
   EventEmitter,
   input,
@@ -114,6 +115,15 @@ export class SearchFieldComponent<T> {
   @ViewChild('searchInput') searchInput:
     | ElementRef<HTMLInputElement>
     | undefined;
+
+  constructor() {
+    effect(
+      () => {
+        this.onSearch();
+      },
+      { allowSignalWrites: true }
+    );
+  }
 
   handleSearchClick() {
     if (this.searchQuery !== '') this.clearInput();
