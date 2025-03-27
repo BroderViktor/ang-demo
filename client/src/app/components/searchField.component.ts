@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -20,7 +21,7 @@ type Paths<T, P extends string = ''> = T extends object
 
 @Component({
   selector: 'ob-search-field',
-  imports: [MatInputModule, FormsModule, MatIconModule],
+  imports: [MatInputModule, FormsModule, MatIconModule, CommonModule],
   template: `
     <div class="search-container">
       <button class="search-button" (click)="handleSearchClick()">
@@ -32,10 +33,7 @@ type Paths<T, P extends string = ''> = T extends object
       </button>
       <input
         #searchInput
-        [class]="
-          'search-input' +
-          (class() === '' ? ' search-input-basic-design' : class())
-        "
+        class="search-input"
         type="text"
         [(ngModel)]="searchQuery"
         (ngModelChange)="onSearch()"
@@ -57,14 +55,32 @@ type Paths<T, P extends string = ''> = T extends object
       justify-content: center;
       width: 40px;
       cursor: pointer;
+      color: rgba(55, 71, 79, 0.87);
     }
 
     .search-input {
+      width: 100%;
+      height: 42px;
+      padding: 8px;
       padding-left: 40px;
+      background: #fff;
+      border-radius: 4px;
+      border: 1px solid rgba(55, 71, 79, 0.87);;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
     }
 
-    .search-input-basic-design {
+    .search-input::placeholder {
+      opacity: 0.7;
+    }
 
+    .search-input:hover {
+      border-color: #00818e;
+    }
+
+    .search-input:focus {
+      outline: #0097A7;
+      border-color: #0097A7;
     }
   `,
 })
