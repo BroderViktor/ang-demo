@@ -5,6 +5,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { SearchFieldComponent } from '../../components/searchField.component';
+import { ParentComponent } from '../../components/test.component';
 import { TranslatePipe } from '../../service/language/translation/translate.pipe';
 import { TodoFormComponent } from './components/todo-form.component';
 import { TodoReturnTypes, TodoService } from './todo.service';
@@ -20,6 +22,8 @@ import { TodoReturnTypes, TodoService } from './todo.service';
     MatCheckboxModule,
     TranslatePipe,
     CommonModule,
+    SearchFieldComponent,
+    ParentComponent,
   ],
   template: `
     <div
@@ -42,6 +46,8 @@ import { TodoReturnTypes, TodoService } from './todo.service';
       <div
         class="w-full flex flex-col p-4 gap-4 bg-amber-200 h-full overflow-y-auto"
       >
+        <ob-search-field [items]="todos()" [searchKey]="'text'" />
+        <ob-parent></ob-parent>
         @for (item of todos(); track item.id) { @if (!item.isDone ||
         !hideDoneTodos()) {
         <div
