@@ -1,7 +1,11 @@
-import { Component, input } from '@angular/core';
-
-// search-field.component.ts
-import { EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -18,13 +22,20 @@ type Paths<T, P extends string = ''> = T extends object
   selector: 'ob-search-field',
   imports: [MatInputModule, FormsModule, MatIconModule],
   template: `
-    <div class="flex items-center gap-2">
-      @if (searchQuery === "") {<button><mat-icon>search</mat-icon></button>}
-      @else {<button>
-        <mat-icon>close</mat-icon></button
-      >}
+    <div class="search-container">
+      <button class="search-button" (click)="handleSearchClick()">
+        @if (searchQuery === "") {
+        <mat-icon>search</mat-icon>
+        } @else {
+        <mat-icon (click)="clearInput()">close</mat-icon>
+        }
+      </button>
       <input
-        class="w-full pl-10 p-2"
+        #searchInput
+        [class]="
+          'search-input' +
+          (class() === '' ? ' search-input-basic-design' : class())
+        "
         type="text"
         [(ngModel)]="searchQuery"
         (ngModelChange)="onSearch()"
@@ -32,15 +43,52 @@ type Paths<T, P extends string = ''> = T extends object
       />
     </div>
   `,
-  styles: ``,
+  styles: `
+    .search-container {
+      position: relative;
+    }
+
+    .search-button {
+      position: absolute;
+      height: 100%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      cursor: pointer;
+    }
+
+    .search-input {
+      padding-left: 40px;
+    }
+
+    .search-input-basic-design {
+
+    }
+  `,
 })
 export class SearchFieldComponent<T> {
+  readonly class = input('');
   readonly items = input.required<T[]>();
   readonly searchKey = input.required<Paths<T>>();
   readonly doAdvancedSearch = input<boolean>(false);
   searchQuery = '';
 
   @Output() outputItems = new EventEmitter<T[]>();
+  @ViewChild('searchInput') searchInput:
+    | ElementRef<HTMLInputElement>
+    | undefined;
+
+  handleSearchClick() {
+    if (this.searchQuery !== '') this.clearInput();
+    if (this.searchInput) this.searchInput.nativeElement.focus();
+  }
+
+  clearInput() {
+    this.searchQuery = '';
+    this.onSearch();
+  }
 
   onSearch() {
     const { items, doAdvancedSearch, searchQuery } = this;
@@ -62,7 +110,8 @@ export class SearchFieldComponent<T> {
       stringify(item).startsWith(searchQuery.toLowerCase())
     );
 
-    if (!doAdvancedSearch) return itemsStartsWithSearchQuery;
+    if (!doAdvancedSearch)
+      return this.outputItems.emit(itemsStartsWithSearchQuery);
 
     const notStartsWith = items().filter(
       (item) => !stringify(item).startsWith(searchQuery.toLowerCase())
@@ -94,8 +143,6 @@ export class SearchFieldComponent<T> {
       ...advancedSearchResult,
     ];
 
-    console.log(totalResult);
-    this.outputItems.emit(totalResult);
-    return;
+    return this.outputItems.emit(totalResult);
   }
 }
