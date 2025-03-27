@@ -46,9 +46,13 @@ import { TodoReturnTypes, TodoService } from './todo.service';
       <div
         class="w-full flex flex-col p-4 gap-4 bg-amber-200 h-full overflow-y-auto"
       >
-        <ob-search-field [items]="todos()" [searchKey]="'text'" />
-        <ob-parent></ob-parent>
-        @for (item of todos(); track item.id) { @if (!item.isDone ||
+        <ob-search-field
+          [items]="todos()"
+          [searchKey]="'text'"
+          [doAdvancedSearch]="true"
+          (outputItems)="handleOutputItems($event)"
+        />
+        @for (item of todosToDisplay(); track item.id) { @if (!item.isDone ||
         !hideDoneTodos()) {
         <div
           class="bg-on-primary rounded-sm p-2 flex gap-2 items-center justify-between"
@@ -80,6 +84,12 @@ export class TodosComponent implements OnInit {
   todos = signal<TodoReturnTypes<'getTodos'>>([]);
   userId = '67a685ecefffacd65cf995c9';
 
+  todosToDisplay = signal<TodoReturnTypes<'getTodos'>>([]);
+
+  handleOutputItems(filteredItems: TodoReturnTypes<'getTodos'>) {
+    this.todosToDisplay.set(filteredItems);
+  }
+
   async ngOnInit() {
     await this.refreshTodos();
   }
@@ -97,6 +107,7 @@ export class TodosComponent implements OnInit {
   async refreshTodos() {
     const todos = await this.todoService.getTodos();
     this.todos.set(todos);
+    this.todosToDisplay.set(todos);
   }
 
   async deleteTodo({ id }: { id: string }) {

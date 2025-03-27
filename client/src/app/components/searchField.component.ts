@@ -19,6 +19,25 @@ type Paths<T, P extends string = ''> = T extends object
     }[keyof T]
   : P;
 
+/**
+ * A reusable search field component with advanced search capabilities.
+ *
+ * This component provides a search input with a clear button and emits filtered results
+ * based on the provided items and search key. It supports both basic and advanced search
+ * modes.
+ *
+ * @example
+ * ```html
+ * <ob-search-field
+ * [items]="todos()"
+ * [searchKey]="'text'"
+ * [doAdvancedSearch]="true"
+ * (outputItems)="handleOutputItems($event)"
+ * />
+ * ```
+ *
+ * @template T The type of the items in the input array.
+ */
 @Component({
   selector: 'ob-search-field',
   imports: [MatInputModule, FormsModule, MatIconModule, CommonModule],
@@ -109,7 +128,6 @@ export class SearchFieldComponent<T> {
   onSearch() {
     const { items, doAdvancedSearch, searchQuery } = this;
     const key = this.searchKey();
-    console.log(searchQuery);
 
     const lowerCaseSearch = searchQuery.toLowerCase();
 
@@ -126,7 +144,7 @@ export class SearchFieldComponent<T> {
       stringify(item).startsWith(searchQuery.toLowerCase())
     );
 
-    if (!doAdvancedSearch)
+    if (!doAdvancedSearch())
       return this.outputItems.emit(itemsStartsWithSearchQuery);
 
     const notStartsWith = items().filter(
