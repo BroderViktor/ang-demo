@@ -6,7 +6,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { SearchFieldComponent } from '../../components/searchField.component';
-import { ParentComponent } from '../../components/test.component';
 import { TranslatePipe } from '../../service/language/translation/translate.pipe';
 import { TodoFormComponent } from './components/todo-form.component';
 import { TodoReturnTypes, TodoService } from './todo.service';
@@ -23,7 +22,6 @@ import { TodoReturnTypes, TodoService } from './todo.service';
     TranslatePipe,
     CommonModule,
     SearchFieldComponent,
-    ParentComponent,
   ],
   template: `
     <div
