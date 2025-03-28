@@ -81,9 +81,9 @@ import { TodoReturnTypes, TodoService } from './todo.service';
 export class TodosComponent implements OnInit {
   hideDoneTodos = signal(false);
   todoService = inject(TodoService);
-  todos = signal<TodoReturnTypes<'getTodos'>>([]);
   userId = '67a685ecefffacd65cf995c9';
 
+  todos = signal<TodoReturnTypes<'getTodos'>>([]);
   todosToDisplay = signal<TodoReturnTypes<'getTodos'>>([]);
 
   handleOutputItems(filteredItems: TodoReturnTypes<'getTodos'>) {

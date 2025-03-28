@@ -3,9 +3,8 @@ import {
   Component,
   effect,
   ElementRef,
-  EventEmitter,
   input,
-  Output,
+  output,
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -29,12 +28,21 @@ type Paths<T, P extends string = ''> = T extends object
  *
  * @example
  * ```html
- * <ob-search-field
- * [items]="todos()"
- * [searchKey]="'text'"
- * [doAdvancedSearch]="true"
- * (outputItems)="handleOutputItems($event)"
- * />
+ *  <ob-search-field
+ *    [items]="listOfItems()"
+ *    [searchKey]="'property.key'"
+ *    [doAdvancedSearch]="true"
+ *    (outputItems)="handleOutputItems($event)"
+ *  />
+ * ```
+ *
+ * ```TypeScript
+ *  listOfItems = signal<Item[]>([...]);
+ *  itemsToDisplay = signal<Item[]>([]);
+ *
+ *  handleOutputItems(filteredItems: Item[]) {
+ *    this.todosToDisplay.set(filteredItems);
+ *  }
  * ```
  *
  * @template T The type of the items in the input array.
@@ -111,7 +119,7 @@ export class SearchFieldComponent<T> {
   readonly doAdvancedSearch = input<boolean>(false);
   searchQuery = '';
 
-  @Output() outputItems = new EventEmitter<T[]>();
+  outputItems = output<T[]>();
   @ViewChild('searchInput') searchInput:
     | ElementRef<HTMLInputElement>
     | undefined;
