@@ -46,6 +46,11 @@ type Paths<T, P extends string = ''> = T extends object
  * ```
  *
  * @template T The type of the items in the input array.
+ * @template P The type of the search key.
+ * @param items An array of items to search through.
+ * @param searchKey The key to search for in the items.
+ * @param doAdvancedSearch A boolean value to enable advanced search mode.
+ * @param outputItems An event emitter that emits the filtered items.
  */
 @Component({
   selector: 'ob-search-field',

@@ -49,7 +49,7 @@ import { TodoReturnTypes, TodoService } from './todo.service';
         <ob-search-field
           [items]="todos()"
           [searchKey]="'text'"
-          [doAdvancedSearch]="true"
+          [doAdvancedSearch]="false"
           (outputItems)="handleOutputItems($event)"
         />
         @for (item of todosToDisplay(); track item.id) { @if (!item.isDone ||
