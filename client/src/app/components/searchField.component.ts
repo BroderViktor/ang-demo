@@ -113,7 +113,7 @@ type Paths<T, P extends string = ''> = T extends object
 
     .search-input:focus {
       outline: #0097A7;
-      border-color: #0097A7;
+      border: 2px solid #0097A7;
     }
   `,
 })
