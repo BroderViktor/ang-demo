@@ -14,7 +14,7 @@ type InputOptions = keyof typeof options;
  * Directive to apply custom input styles based on the variant class.
  *
  * Usage:
- * <input obInput [variantClass]="'green'" />
+ * <input obInput [variant]="'green'" />
  */
 @Directive({
   selector: '[obInput]',
@@ -25,21 +25,17 @@ export class ObInputDirective implements OnInit {
    *
    * @default 'default'
    */
-  readonly variantClass = input<InputOptions>('default');
+  readonly variant = input<InputOptions>('default');
 
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit() {
     const existing = this.el.nativeElement.getAttribute('class') || '';
     console.log({
-      test: options[this.variantClass()],
-      variantClass: this.variantClass,
+      test: options[this.variant()],
+      variantClass: this.variant,
     });
-    const mergeClassname = cn(
-      options.base,
-      options[this.variantClass()],
-      existing
-    );
+    const mergeClassname = cn(options.base, options[this.variant()], existing);
     this.renderer.setAttribute(this.el.nativeElement, 'class', mergeClassname);
   }
 }

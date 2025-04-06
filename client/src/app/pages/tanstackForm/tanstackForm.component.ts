@@ -19,7 +19,7 @@ import { ObInputDirective } from '../../components/ui/input.directive';
           >
           <input
             obInput
-            [variantClass]="'blue'"
+            variant="blue"
             [name]="fullName.api.name"
             [value]="fullName.api.state.value"
             (blur)="fullName.api.handleBlur()"

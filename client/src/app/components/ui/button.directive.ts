@@ -31,20 +31,20 @@ type InputSize = keyof (typeof options)['size'];
  * Directive to apply custom input styles based on the variant class.
  *
  * Usage:
- * <input obInput [variantClass]="'green'" />
+ * <button obButton variant="default" size="default" />
  */
 @Directive({
   selector: '[obButton]',
 })
 export class ObButtonDirective implements OnInit {
   /**
-   * The variant class to apply to the input element.
+   * The variant class to apply to the button element.
    *
    * @default 'default'
    */
   readonly variant = input<InputOptions>('default');
   /**
-   * The variant class to apply to the input element.
+   * The variant class to apply to the button element.
    *
    * @default 'default'
    */
