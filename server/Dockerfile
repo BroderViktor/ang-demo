@@ -2,7 +2,7 @@ FROM node:17-slim
 WORKDIR /usr/app
 
 # Install dependencies and build the project.
-COPY package.json package-lock.json ./
+COPY package.json ./
 RUN npm install
 COPY . .
 RUN npm run build

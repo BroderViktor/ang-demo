@@ -5,6 +5,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { SearchFieldComponent } from '../../components/searchField.component';
 import { TranslatePipe } from '../../service/language/translation/translate.pipe';
 import { TodoFormComponent } from './components/todo-form.component';
 import { TodoReturnTypes, TodoService } from './todo.service';
@@ -20,6 +21,7 @@ import { TodoReturnTypes, TodoService } from './todo.service';
     MatCheckboxModule,
     TranslatePipe,
     CommonModule,
+    SearchFieldComponent,
   ],
   template: `
     <div
@@ -42,7 +44,13 @@ import { TodoReturnTypes, TodoService } from './todo.service';
       <div
         class="w-full flex flex-col p-4 gap-4 bg-amber-200 h-full overflow-y-auto"
       >
-        @for (item of todos(); track item.id) { @if (!item.isDone ||
+        <ob-search-field
+          [items]="todos()"
+          [searchKey]="'text'"
+          [doAdvancedSearch]="false"
+          (outputItems)="handleOutputItems($event)"
+        />
+        @for (item of todosToDisplay(); track item.id) { @if (!item.isDone ||
         !hideDoneTodos()) {
         <div
           class="bg-on-primary rounded-sm p-2 flex gap-2 items-center justify-between"
@@ -71,8 +79,14 @@ import { TodoReturnTypes, TodoService } from './todo.service';
 export class TodosComponent implements OnInit {
   hideDoneTodos = signal(false);
   todoService = inject(TodoService);
-  todos = signal<TodoReturnTypes<'getTodos'>>([]);
   userId = '67a685ecefffacd65cf995c9';
+
+  todos = signal<TodoReturnTypes<'getTodos'>>([]);
+  todosToDisplay = signal<TodoReturnTypes<'getTodos'>>([]);
+
+  handleOutputItems(filteredItems: TodoReturnTypes<'getTodos'>) {
+    this.todosToDisplay.set(filteredItems);
+  }
 
   async ngOnInit() {
     await this.refreshTodos();
@@ -91,6 +105,7 @@ export class TodosComponent implements OnInit {
   async refreshTodos() {
     const todos = await this.todoService.getTodos();
     this.todos.set(todos);
+    this.todosToDisplay.set(todos);
   }
 
   async deleteTodo({ id }: { id: string }) {

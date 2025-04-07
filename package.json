@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run prepare && concurrently \"npm run start:server\" \"npm run start:client\"",
-    "start:server": "cd server && npm start",
-    "start:client": "cd client && npm start",
+    "start:server": "cd server && pnpm start",
+    "start:client": "cd client && pnpm start",
     "prepare": "concurrently \"npm run prepare:server\" \"npm run prepare:client\"",
-    "prepare:server": "cd server && npm install",
-    "prepare:client": "cd client && npm install",
+    "prepare:server": "cd server && pnpm install",
+    "prepare:client": "cd client && pnpm install",
     "build": "npm run prepare && concurrently \"npm run build:server\" \"npm run build:client\"",
     "build:server": "cd server && npm run build",
     "build:client": "cd client && npm run build",
@@ -22,5 +22,9 @@
   },
   "devDependencies": {
     "concurrently": "^7.1.0"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.1.0"
   }
 }
