@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Setup Prisma
-        run: npx prisma generate
+        run: cd server && npx prisma generate && cd ..
       - name: Run ESLint
         run: npm run lint
       - name: Run TS Check
