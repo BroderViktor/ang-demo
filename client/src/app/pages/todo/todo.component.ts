@@ -92,7 +92,14 @@ export class TodosComponent {
     this.todosToDisplay.set(filteredItems);
   }
 
-  async addTodo({ text }: { text: string }) {
+  async addTodo({
+    value,
+    callback,
+  }: {
+    value: { text: string };
+    callback: () => void;
+  }) {
+    const { text } = value;
     await this.trpcClient.todo.createTodo
       .mutate({
         text,
@@ -100,6 +107,7 @@ export class TodosComponent {
       })
       .then(async () => {
         await this.refreshTodos();
+        callback();
       })
       .catch((err) => {
         console.log(err);

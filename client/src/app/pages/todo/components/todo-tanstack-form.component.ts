@@ -33,12 +33,22 @@ interface FormValues {
           />
         </ng-container>
       </div>
-      <button type="submit" obButton variant="outline">Submit</button>
+      <button
+        type="submit"
+        obButton
+        variant="outline"
+        [disabled]="this.form.state.isSubmitting"
+      >
+        {{ this.form.state.isSubmitting ? 'Submitting...' : 'Submit' }}
+      </button>
     </form>
   `,
 })
 export class TodoTanstackForm {
-  @Output() formSubmitted = new EventEmitter<FormValues>();
+  @Output() formSubmitted = new EventEmitter<{
+    value: FormValues;
+    callback: () => void;
+  }>();
   defaultValues = input<FormValues>();
 
   form = injectForm({
@@ -46,7 +56,10 @@ export class TodoTanstackForm {
       text: '',
     },
     onSubmit: (form) => {
-      this.formSubmitted.emit(form.value);
+      this.formSubmitted.emit({
+        ...form,
+        callback: () => form.formApi.reset(),
+      });
     },
   });
 
