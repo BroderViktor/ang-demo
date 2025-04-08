@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, resource, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,8 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { SearchFieldComponent } from '../../components/searchField.component';
 import { TranslatePipe } from '../../service/language/translation/translate.pipe';
+import { trpcClient } from '../../trpcClient';
 import { TodoFormComponent } from './components/todo-form.component';
-import { TodoReturnTypes, TodoService } from './todo.service';
 
 @Component({
   selector: 'ob-todos',
@@ -76,44 +76,49 @@ import { TodoReturnTypes, TodoService } from './todo.service';
     </div>
   `,
 })
-export class TodosComponent implements OnInit {
+export class TodosComponent {
+  trpcClient = trpcClient;
   hideDoneTodos = signal(false);
-  todoService = inject(TodoService);
   userId = '67bb293cbf7ee833b6090fcc';
 
-  todos = signal<TodoReturnTypes<'getTodos'>>([]);
-  todosToDisplay = signal<TodoReturnTypes<'getTodos'>>([]);
+  todosResource = resource({
+    loader: () => trpcClient.todo.getTodos.query(),
+  });
 
-  handleOutputItems(filteredItems: TodoReturnTypes<'getTodos'>) {
+  todos = computed(() => this.todosResource.value() || []);
+  todosToDisplay = signal(this.todos());
+
+  handleOutputItems(filteredItems: ReturnType<typeof this.todos>) {
     this.todosToDisplay.set(filteredItems);
   }
 
-  async ngOnInit() {
-    await this.refreshTodos();
-  }
-
   async addTodo({ text }: { text: string }) {
-    await this.todoService.createTodo({ text, userId: this.userId });
+    await this.trpcClient.todo.createTodo.mutate({
+      text,
+      userId: this.userId,
+    });
     await this.refreshTodos();
   }
 
   async toggleTodo({ id, isDone }: { id: string; isDone: boolean }) {
-    await this.todoService.toggleTodo({ id, isDone });
-    await this.refreshTodos();
-  }
-
-  async refreshTodos() {
-    const todos = await this.todoService.getTodos();
-    this.todos.set(todos);
-    this.todosToDisplay.set(todos);
+    await this.trpcClient.todo.toggleTodo
+      .mutate({ id, isDone })
+      .then(async () => {
+        await this.refreshTodos();
+      });
   }
 
   async deleteTodo({ id }: { id: string }) {
-    await this.todoService.deleteTodo({ id });
-    await this.refreshTodos();
+    await this.trpcClient.todo.deleteTodo.mutate({ id }).then(async () => {
+      await this.refreshTodos();
+    });
   }
 
   toggleHideDone() {
     this.hideDoneTodos.update((v) => !v);
+  }
+
+  refreshTodos() {
+    this.todosResource.reload();
   }
 }

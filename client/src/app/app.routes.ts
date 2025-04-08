@@ -8,7 +8,7 @@ import { AcademyComponent } from './pages/academy/academy.component';
 import { MeetingsComponent } from './pages/meetings/meetings.component';
 import { MessagesComponent } from './pages/messages/message.component';
 import { OwnersComponent } from './pages/owners/owners.component';
-import { TanstackForm } from './pages/tanstackForm/tanstackForm.component';
+import { TanstackForm } from './pages/tanstackForm/testForm.component';
 import { TodosComponent } from './pages/todo/todo.component';
 
 export const routes: Routes = [
