@@ -1,6 +1,7 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
-import { injectForm, TanStackField } from '@tanstack/angular-form';
+import { injectForm, injectStore, TanStackField } from '@tanstack/angular-form';
+import { z } from 'zod';
 import { ObButtonDirective } from '../../../components/ui/button.directive';
 import { ObInputDirective } from '../../../components/ui/input.directive';
 
@@ -18,7 +19,17 @@ interface FormValues {
       class="w-full flex p-4 gap-2 h-20 items-end"
     >
       <div class=" w-full">
-        <ng-container [tanstackField]="form" name="text" #fullName="field">
+        <ng-container
+          [tanstackField]="form"
+          name="text"
+          #fullName="field"
+          [validators]="{
+            onChange: z
+              .string()
+              .min(3, 'First name must be at least 3 characters'),
+            onChangeAsyncDebounceMs: 200,
+          }"
+        >
           <label
             class="leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 font-medium text-base"
             [for]="fullName.api.name"
@@ -37,7 +48,7 @@ interface FormValues {
         type="submit"
         obButton
         variant="outline"
-        [disabled]="this.form.state.isSubmitting"
+        [disabled]="!this.canSubmit() || this.isSubmitting()"
       >
         {{ this.form.state.isSubmitting ? 'Submitting...' : 'Submit' }}
       </button>
@@ -45,6 +56,8 @@ interface FormValues {
   `,
 })
 export class TodoTanstackForm {
+  z = z;
+
   @Output() formSubmitted = new EventEmitter<{
     value: FormValues;
     callback: () => void;
@@ -62,6 +75,8 @@ export class TodoTanstackForm {
       });
     },
   });
+  canSubmit = injectStore(this.form, (state) => state.canSubmit);
+  isSubmitting = injectStore(this.form, (state) => state.isSubmitting);
 
   handleSubmit(event: SubmitEvent) {
     event.preventDefault();

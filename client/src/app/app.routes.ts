@@ -8,7 +8,7 @@ import { AcademyComponent } from './pages/academy/academy.component';
 import { MeetingsComponent } from './pages/meetings/meetings.component';
 import { MessagesComponent } from './pages/messages/message.component';
 import { OwnersComponent } from './pages/owners/owners.component';
-import { TanstackForm } from './pages/tanstackForm/testForm.component';
+import { TanstackArrayForm } from './pages/tanstackForm/arrayForm.component';
 import { TodosComponent } from './pages/todo/todo.component';
 
 export const routes: Routes = [
@@ -59,7 +59,7 @@ export const routes: Routes = [
   },
   {
     path: routePaths.tanstackForm,
-    component: TanstackForm,
+    component: TanstackArrayForm,
     title: 'Tanstack Form',
   },
 ] as const;
