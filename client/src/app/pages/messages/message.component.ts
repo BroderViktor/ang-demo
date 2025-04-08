@@ -65,7 +65,7 @@ export class MessagesComponent implements OnInit {
   });
 
   //? Random user string from the mongoDB
-  userId = '67a685ecefffacd65cf995c9';
+  userId = '67bb293cbf7ee833b6090fcc';
 
   constructor() {
     effect(() => {
