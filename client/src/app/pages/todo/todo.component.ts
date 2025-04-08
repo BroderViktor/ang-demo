@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { SearchFieldComponent } from '../../components/searchField.component';
 import { TranslatePipe } from '../../service/language/translation/translate.pipe';
 import { trpcClient } from '../../trpcClient';
-import { TodoFormComponent } from './components/todo-form.component';
+import { TodoTanstackForm } from './components/todo-tanstack-form.component';
 
 @Component({
   selector: 'ob-todos',
@@ -16,12 +16,12 @@ import { TodoFormComponent } from './components/todo-form.component';
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    TodoFormComponent,
     MatIconModule,
     MatCheckboxModule,
     TranslatePipe,
     CommonModule,
     SearchFieldComponent,
+    TodoTanstackForm,
   ],
   template: `
     <div
@@ -72,7 +72,7 @@ import { TodoFormComponent } from './components/todo-form.component';
         </div>
         } }
       </div>
-      <ob-todo-form (formSubmitted)="addTodo($event)" class="w-full" />
+      <ob-todo-tanstack-form (formSubmitted)="addTodo($event)" class="w-full" />
     </div>
   `,
 })
@@ -93,11 +93,17 @@ export class TodosComponent {
   }
 
   async addTodo({ text }: { text: string }) {
-    await this.trpcClient.todo.createTodo.mutate({
-      text,
-      userId: this.userId,
-    });
-    await this.refreshTodos();
+    await this.trpcClient.todo.createTodo
+      .mutate({
+        text,
+        userId: this.userId,
+      })
+      .then(async () => {
+        await this.refreshTodos();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   async toggleTodo({ id, isDone }: { id: string; isDone: boolean }) {
