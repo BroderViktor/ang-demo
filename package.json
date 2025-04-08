@@ -8,7 +8,7 @@
     "start:server": "cd server && pnpm start",
     "start:client": "cd client && pnpm start",
     "prepare": "concurrently \"npm run prepare:server\" \"npm run prepare:client\"",
-    "prepare:server": "cd server && pnpm install",
+    "prepare:server": "cd server && pnpm install && npx prisma generate",
     "prepare:client": "cd client && pnpm install",
     "build": "npm run prepare && concurrently \"npm run build:server\" \"npm run build:client\"",
     "build:server": "cd server && npm run build",
