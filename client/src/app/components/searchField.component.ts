@@ -37,6 +37,7 @@ type Paths<T, P extends string = ''> = T extends object
  * ```
  *
  * ```TypeScript
+ *  //TypeScript
  *  listOfItems = signal<Item[]>([...]);
  *  itemsToDisplay = signal<Item[]>([]);
  *
@@ -57,13 +58,15 @@ type Paths<T, P extends string = ''> = T extends object
   imports: [MatInputModule, FormsModule, MatIconModule, CommonModule],
   template: `
     <div class="search-container">
-      <button class="search-button" (click)="handleSearchClick()">
-        @if (searchQuery === "") {
+      @if (searchQuery === "") {
+      <button class="search-button" (click)="focusSearchField()">
         <mat-icon>search</mat-icon>
-        } @else {
-        <mat-icon (click)="clearInput()">close</mat-icon>
-        }
       </button>
+      } @else {
+      <button class="search-button" (click)="clearInput()">
+        <mat-icon>close</mat-icon>
+      </button>
+      }
       <input
         #searchInput
         class="search-input"
@@ -130,22 +133,17 @@ export class SearchFieldComponent<T> {
     | undefined;
 
   constructor() {
-    effect(
-      () => {
-        this.onSearch();
-      },
-      { allowSignalWrites: true }
-    );
+    effect(() => this.onSearch(), { allowSignalWrites: true });
   }
 
-  handleSearchClick() {
-    if (this.searchQuery !== '') this.clearInput();
+  focusSearchField() {
     if (this.searchInput) this.searchInput.nativeElement.focus();
   }
 
   clearInput() {
     this.searchQuery = '';
     this.onSearch();
+    this.focusSearchField();
   }
 
   onSearch() {
