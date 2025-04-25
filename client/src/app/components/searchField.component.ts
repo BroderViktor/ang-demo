@@ -121,7 +121,6 @@ type Paths<T, P extends string = ''> = T extends object
   `,
 })
 export class SearchFieldComponent<T> {
-  readonly class = input('');
   readonly items = input.required<T[]>();
   readonly searchKey = input.required<Paths<T>>();
   readonly doAdvancedSearch = input<boolean>(false);
