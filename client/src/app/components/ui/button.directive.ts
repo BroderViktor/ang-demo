@@ -30,8 +30,8 @@ type InputSize = keyof (typeof options)['size'];
 /**
  * Directive to apply custom input styles based on the variant class.
  *
- * Usage:
- * \<button obButton size="default" variant="default">Text\</button>
+ * @example
+ * <button obButton size="default" variant="default">Text\</button>
  */
 @Directive({
   selector: '[obButton]',
