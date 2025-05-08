@@ -4,6 +4,7 @@ import { CreateWSSContextFnOptions } from "@trpc/server/adapters/ws";
 import { prisma } from "../database/prismaDatabase";
 
 //? This is how you initialize a context for the server
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const createContext = async (
   opts: CreateHTTPContextOptions | CreateWSSContextFnOptions
 ) => ({

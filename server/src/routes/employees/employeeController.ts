@@ -26,6 +26,7 @@ export async function getEmployeeById(req: Request, res: Response) {
       res.status(404).send(`Failed to find an employee: ID ${id}`);
     }
   } catch (error) {
+    console.log(error);
     res.status(404).send(`Failed to find an employee: ID ${req?.params?.id}`);
   }
 }
