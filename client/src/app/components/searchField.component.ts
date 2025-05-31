@@ -54,7 +54,7 @@ type Paths<T, P extends string = ''> = T extends object
  * @param outputItems An event emitter that emits the filtered items.
  */
 @Component({
-  selector: 'ob-search-field',
+  selector: 'app-search-field',
   imports: [MatInputModule, FormsModule, MatIconModule, CommonModule],
   template: `
     <div class="search-container">

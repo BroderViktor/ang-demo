@@ -6,26 +6,11 @@ import { Event, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import posthog from 'posthog-js';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { MainLayoutComponent } from './components/layout/main-layout/main-layout.component';
-import { DemoSidebar } from './components/layout/sidebar/sidebar.component';
 
 @Component({
-  selector: 'ob-root',
-  imports: [
-    RouterOutlet,
-    MatToolbarModule,
-    DemoSidebar,
-    MainLayoutComponent,
-    MatIconModule,
-    MatSidenavModule,
-  ],
-  template: `
-    <ob-demo-sidebar>
-      <ob-main-layout>
-        <router-outlet></router-outlet>
-      </ob-main-layout>
-    </ob-demo-sidebar>
-  `,
+  selector: 'app-root',
+  imports: [RouterOutlet, MatToolbarModule, MatIconModule, MatSidenavModule],
+  template: ` <router-outlet></router-outlet> `,
 })
 export class AppComponent implements OnInit {
   title = 'angular-spa';

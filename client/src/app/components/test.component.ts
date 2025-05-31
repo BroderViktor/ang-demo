@@ -10,11 +10,11 @@ interface Item {
 }
 
 @Component({
-  selector: 'ob-parent',
+  selector: 'app-parent',
   standalone: true,
   imports: [SearchFieldComponent, CommonModule],
   template: `
-    <ob-search-field
+    <app-search-field
       [items]="items"
       searchKey="name"
       (outputItems)="handleOutputItems($event)"

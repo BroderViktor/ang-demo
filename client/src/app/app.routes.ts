@@ -1,65 +1,29 @@
 import { Routes } from '@angular/router';
 import { routePaths } from './appRouteTypes';
-import { ChatWindow } from './components/chat/chat-window.component';
-import { AddEmployeeComponent } from './components/employee/components/add-employee.component';
-import { EditEmployeeComponent } from './components/employee/components/edit-employee.component';
-import { EmployeesListComponent } from './components/employee/components/employees-list.component';
-import { AcademyComponent } from './pages/academy/academy.component';
-import { MeetingsComponent } from './pages/meetings/meetings.component';
-import { MessagesComponent } from './pages/messages/message.component';
-import { OwnersComponent } from './pages/owners/owners.component';
-import { TanstackArrayForm } from './pages/tanstackForm/arrayForm.component';
-import { TodosComponent } from './pages/todo/todo.component';
+import { EmptyPageComponent } from './pages/404-page/empty-page.component';
+import { HomepageComponent } from './pages/homepage/homepage.component';
+import { SignInPageComponent } from './pages/sign-in-page/sign-in-page.component';
 
 export const routes: Routes = [
   {
-    path: routePaths.employeesList,
+    path: routePaths.signIn,
     pathMatch: 'full',
-    component: EmployeesListComponent,
-    title: 'Employees List',
+    component: SignInPageComponent,
+    title: 'Sign In',
   },
   {
-    path: routePaths.addEmployee,
-    component: AddEmployeeComponent,
-    title: 'Add Employee',
+    path: routePaths.homePage,
+    pathMatch: 'full',
+    component: HomepageComponent,
+    title: 'Home Page',
   },
   {
-    path: routePaths.editEmployee,
-    component: EditEmployeeComponent,
-    title: 'Edit Employee',
+    path: '',
+    pathMatch: 'full',
+    redirectTo: routePaths.homePage,
   },
   {
-    path: routePaths.chat,
-    component: ChatWindow,
-    title: 'Chat',
-  },
-  {
-    path: routePaths.academy,
-    component: AcademyComponent,
-    title: 'Academy',
-  },
-  {
-    path: routePaths.meetings,
-    component: MeetingsComponent,
-    title: 'Meetings',
-  },
-  {
-    path: routePaths.messages,
-    component: MessagesComponent,
-    title: 'Messages',
-  },
-  {
-    path: routePaths.owners,
-    component: OwnersComponent,
-    title: 'Owners',
-  },
-  {
-    path: routePaths.todo,
-    component: TodosComponent,
-  },
-  {
-    path: routePaths.tanstackForm,
-    component: TanstackArrayForm,
-    title: 'Tanstack Form',
+    path: '**',
+    component: EmptyPageComponent,
   },
 ] as const;
