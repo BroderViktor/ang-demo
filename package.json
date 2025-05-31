@@ -21,6 +21,12 @@
     "typesafety:server": "cd server && npm run typesafety"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.9",
     "concurrently": "^7.1.0"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "jsonwebtoken": "^9.0.2"
   }
 }

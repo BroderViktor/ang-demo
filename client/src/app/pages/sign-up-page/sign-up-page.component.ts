@@ -1,17 +1,16 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatFormField } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
+import { MatFormField, MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { UserService } from '../../service/user/user.service';
 
 @Component({
-  selector: 'app-sign-in-page',
-  templateUrl: './sign-in-page.component.html',
-  styleUrls: ['./sign-in-page.component.scss'],
-  imports: [MatFormField, MatInput, ReactiveFormsModule],
+  selector: 'app-sign-up-page',
+  templateUrl: './sign-up-page.component.html',
+  styleUrls: ['./sign-up-page.component.scss'],
+  imports: [ReactiveFormsModule, MatFormField, MatInput],
 })
-export class SignInPageComponent {
+export class SignUpPageComponent {
   userService = inject(UserService);
   router = inject(Router);
 
@@ -20,8 +19,8 @@ export class SignInPageComponent {
 
   errorMsg = signal('');
 
-  async login() {
-    const res = await this.userService.signIn(
+  async signUp() {
+    const res = await this.userService.signUp(
       this.emailControl.value || '',
       this.passwordControl.value || ''
     );

@@ -3,6 +3,7 @@ import { routePaths } from './appRouteTypes';
 import { EmptyPageComponent } from './pages/404-page/empty-page.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { SignInPageComponent } from './pages/sign-in-page/sign-in-page.component';
+import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,12 @@ export const routes: Routes = [
     pathMatch: 'full',
     component: HomepageComponent,
     title: 'Home Page',
+  },
+  {
+    path: routePaths.signUp,
+    pathMatch: 'full',
+    component: SignUpPageComponent,
+    title: 'Sign Up',
   },
   {
     path: '',

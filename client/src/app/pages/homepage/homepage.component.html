@@ -1,1 +1,19 @@
 <p>Welcome to the Homepage!</p>
+@if (userService.signedIn()) {
+<p>You are signed in!</p>
+} @else {
+<p>You are not signed in!</p>
+<button
+  class="bg-amber-200 hover:bg-amber-300 px-2 shadow-2xs cursor-pointer"
+  routerLink="/sign-up"
+>
+  Sign Up
+</button>
+<button
+  class="bg-amber-500 px-2 shadow-2xs ml-4 hover:bg-amber-600 cursor-pointer"
+  routerLink="/login"
+>
+  Login
+</button>
+
+}

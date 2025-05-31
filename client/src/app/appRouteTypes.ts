@@ -1,6 +1,7 @@
 export const routePaths = {
   homePage: 'home',
-  signIn: 'sign-in',
+  signIn: 'login',
+  signUp: 'sign-up',
 } as const;
 
 export type RoutePath = (typeof routePaths)[keyof typeof routePaths];

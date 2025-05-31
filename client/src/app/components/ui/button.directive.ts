@@ -34,9 +34,9 @@ type InputSize = keyof (typeof options)['size'];
  * <button obButton size="default" variant="default">Text\</button>
  */
 @Directive({
-  selector: '[obButton]',
+  selector: '[appButton]',
 })
-export class ObButtonDirective implements OnInit {
+export class AppButtonDirective implements OnInit {
   /**
    * The variant class to apply to the button element.
    *
